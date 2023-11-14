@@ -1,4 +1,4 @@
-.\venv\Sc   # Casidoo - Given a list of tasks, where each task has a duration, and a limited amount of available time to work, write a function to return the tasks that can be completed within the given time, without re-ordering the original list of tasks.
+# Casidoo - Given a list of tasks, where each task has a duration, and a limited amount of available time to work, write a function to return the tasks that can be completed within the given time, without re-ordering the original list of tasks.
 
 # RELEVANT EXAMPLE OF RECURSION
 

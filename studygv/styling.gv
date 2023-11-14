@@ -1,0 +1,7 @@
+digraph G {
+	node [ shape=square, style=filled, color=yellow]
+	edge [ style=solid, color=blue]
+	A [color=red]
+	B [color = pink]
+	{A, B, C} -> {D, E, F}
+}

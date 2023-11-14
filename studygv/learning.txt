@@ -1,0 +1,14 @@
+graph G = This is an undirected graph, simply showing a relationship
+digraph G = This is a directional relationship
+
+dot -V 
+will show me the version in the terminal and check dot is working in my path post install
+
+dot -Tpng learning2.gv -o learningtest.png 
+will tell the program to create a png file, using my defined relationship, outputting to the defined png file location
+
+STYLING
+NODE - endpoints
+EDGE - the connecting lines (can be dotted, solid etc)
+
+https://youtu.be/YL260-A5r2U?si=YqSQxd8IaVdXwh-Z
