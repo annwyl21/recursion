@@ -20,7 +20,8 @@ def doTasks(tasks, timeToWork, index=0, currentSum=0, currentCombination=[], dep
     if currentSum > timeToWork:
          print(f"{indent}{currentSum} minutes TOO LONG, {currentCombination}\n")
     else:
-        print(f"{indent}calculating... {currentCombination})")
+        if currentCombination:
+            print(f"{indent}calculating... {currentCombination})")
 
     # Initialize a list to store combinations
     combinations = []
