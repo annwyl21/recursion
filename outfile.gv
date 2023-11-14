@@ -2,18 +2,11 @@ graph G {
 	"Option 1" [color=yellow, style=filled, shape=rectangle]
 	"Option 2" [color=yellow, style=filled, shape=rectangle]
 	"Option 3" [color=yellow, style=filled, shape=rectangle]
-	"Option 4" [color=yellow, style=filled, shape=rectangle]
-	"Option 5" [color=yellow, style=filled, shape=rectangle]
 	"Option 1" -- "Load Washing Machine"
 	"Option 1" -- "Clean Sink"
 	"Option 2" -- "Clean Sink"
 	"Option 2" -- "Wipe Surfaces"
 	"Option 2" -- "Make Cup of Tea"
-	"Option 3" -- "Clean Sink"
+	"Option 3" -- "Hang Laundry"
 	"Option 3" -- "Wipe Surfaces"
-	"Option 3" -- "Make Cup of Coffee"
-	"Option 4" -- "Hang Laundry"
-	"Option 4" -- "Wipe Surfaces"
-	"Option 5" -- "Make Cup of Tea"
-	"Option 5" -- "Make Cup of Coffee"
 }

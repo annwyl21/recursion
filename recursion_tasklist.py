@@ -8,8 +8,7 @@ tasks = [
   { 'name': 'Mop Floors', 'duration': 7 },
   { 'name': 'Hang Laundry', 'duration': 5 },
   { 'name': 'Wipe Surfaces', 'duration': 1 },
-  { 'name': 'Make Cup of Tea', 'duration': 3 },
-  { 'name': 'Make Cup of Coffee', 'duration': 3 }
+  { 'name': 'Make Cup of Tea', 'duration': 3 }
 ]
 
 timeToWork = 6
@@ -19,17 +18,22 @@ def doTasks(tasks, timeToWork, index=0, currentSum=0, currentCombination=[], dep
     indent = "  " * depth  
     # print(f"{indent}doTasks(index={index}, currentSum={currentSum}, currentCombination={currentCombination})")
     if currentSum > timeToWork:
-         print(f"{indent}{currentCombination}, {currentSum} minutes (too long)")
+         print(f"{indent}{currentSum} minutes TOO LONG, {currentCombination}\n")
     else:
-         print(f"{indent}{currentCombination})")
+        print(f"{indent}calculating... {currentCombination})")
 
     # Initialize a list to store combinations
     combinations = []
 
     # If the current sum equals the target time, add the current combination to the list of combinations.
     if currentSum == timeToWork:
+        print(f"{indent}Found combination ({timeToWork} minutes): ", end="")
+        for index, item in enumerate(currentCombination):
+            if index < len(currentCombination) - 1:
+                print(f"{item}, ", end="")
+            else:
+                print(f"{item}\n")
         # print(f"{indent}Found combination: {currentCombination}")
-        print(f"\n{indent}Found combination: {currentCombination}, {timeToWork} minutes\n")
         combinations.append(currentCombination)
         return combinations
 
@@ -54,7 +58,14 @@ def formatOutput(combinations):
 
 combinations = doTasks(tasks, timeToWork=6)
 formatted_output = formatOutput(combinations)
-print(formatted_output)
+print("\nResult:")
+for option, listoftasks in formatted_output.items():
+    print(f"\tOption {option}: ", end="")
+    for index, item in enumerate(listoftasks):
+            if index < len(listoftasks) - 1:
+                print(f"{item}, ", end="")
+            else:
+                print(f"{item}")
 # {1: ['Task 1', 'Task 2'], 2: ['Task 4', 'Task 5'], 3: ['Task 2', 'Task 5', 'Task 6']}
 
 # Use the formatted output to generate the Graphviz code
@@ -110,6 +121,7 @@ In summary, the recursive part of the `doTasks` function systematically explores
 '''
 
 # Co-pilot solution is superb with its use of lambda as a sorting key however, it only offers 1 selection of tasks.  I wanted to see if I could get all the tasks that could be completed within the given time.
+# Sort tasks by duration, shortest to longest, then iterate through the list of tasks.  If the timeToWork is greater than or equal to the duration of the task, add the task to the completedTasks list and subtract the duration of the task from the timeToWork.  Return the completedTasks list.
 def doTasksCP(tasks, timeToWork):
 	tasks.sort(key=lambda x: x['duration'])
 	completedTasks = []
@@ -119,5 +131,5 @@ def doTasksCP(tasks, timeToWork):
 			timeToWork -= task['duration']
 	return completedTasks
 
-print(doTasksCP(tasks, timeToWork=6))
+print("Alternative Solution: ", doTasksCP(tasks, timeToWork=6))
 # ['Task 2', 'Task 5', 'Task 6']
