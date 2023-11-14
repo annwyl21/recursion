@@ -13,7 +13,7 @@ python recursion_tasklist.py
 ```
 dot -Tpng outfile.gv -o taskgraph.png
 ```
-__Note: This requires Graphviz to be installed.__
+_Note: This requires Graphviz to be installed._
 
 Result:
 ![Task List](./taskgraph.png)
