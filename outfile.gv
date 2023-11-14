@@ -1,1 +1,12 @@
-graph G {\n\t"Option 1" [color=yellow, style=filled, shape=rectangle]\n\t"Option 2" [color=green, style=filled, shape=rectangle]\n\t"Option 3" [color=yellow, style=filled, shape=rectangle]\n\t"Option 1" -- "Load Washing Machine"\n\t"Option 1" -- "Clean Sink"\n\t"Option 2" -- "Clean Sink"\n\t"Option 2" -- "Wipe Surfaces"\n\t"Option 2" -- "Make Cup of Tea"\n\t"Option 3" -- "Hang Laundry"\n\t"Option 3" -- "Wipe Surfaces"\n}
+graph G {
+	"Option 1" [color=yellow, style=filled, shape=rectangle]
+	"Option 2" [color=yellow, style=filled, shape=rectangle]
+	"Option 3" [color=yellow, style=filled, shape=rectangle]
+	"Option 1" -- "Load Washing Machine"
+	"Option 1" -- "Clean Sink"
+	"Option 2" -- "Clean Sink"
+	"Option 2" -- "Wipe Surfaces"
+	"Option 2" -- "Make Cup of Tea"
+	"Option 3" -- "Hang Laundry"
+	"Option 3" -- "Wipe Surfaces"
+}

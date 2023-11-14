@@ -56,22 +56,15 @@ print(formatted_output)
 nodes = []
 edges = []
 
-# Define node styles
-node_styles = {
-    1: '[color=yellow, style=filled, shape=rectangle]',
-    2: '[color=green, style=filled, shape=rectangle]',
-    3: '[color=yellow, style=filled, shape=rectangle]'
-}
-
 # Process the dictionary to create nodes and edges
-for key, values in formatted_output.items():
+for key, tasklist in formatted_output.items():
     option = 'Option ' + str(key)
-    nodes.append(f'\"{option}\" {node_styles[key]}')
-    for value in values:
+    nodes.append(f'\"{option}\" [color=yellow, style=filled, shape=rectangle]')
+    for value in tasklist:
         edges.append(f'\"{option}\" -- \"{value}\"')
 
 # Combine everything into the final Graphviz code
-graphviz_code = 'graph G {' + '\\n\\t' + '\\n\\t'.join(nodes + edges) + '\\n}'
+graphviz_code = "graph G {\n\t" + "\n\t".join(nodes + edges) + "\n}"
 
 # Create a file with the Graphviz code
 with open('outfile.gv', 'w') as f:
