@@ -51,6 +51,32 @@ formatted_output = formatOutput(combinations)
 print(formatted_output)
 # {1: ['Task 1', 'Task 2'], 2: ['Task 4', 'Task 5'], 3: ['Task 2', 'Task 5', 'Task 6']}
 
+# Use the formatted output to generate the Graphviz code
+# Initialize parts of the Graphviz code
+nodes = []
+edges = []
+
+# Define node styles
+node_styles = {
+    1: '[color=yellow, style=filled, shape=rectangle]',
+    2: '[color=green, style=filled, shape=rectangle]',
+    3: '[color=yellow, style=filled, shape=rectangle]'
+}
+
+# Process the dictionary to create nodes and edges
+for key, values in formatted_output.items():
+    option = 'Option ' + str(key)
+    nodes.append(f'\"{option}\" {node_styles[key]}')
+    for value in values:
+        edges.append(f'\"{option}\" -- \"{value}\"')
+
+# Combine everything into the final Graphviz code
+graphviz_code = 'graph G {' + '\\n\\t' + '\\n\\t'.join(nodes + edges) + '\\n}'
+
+# Create a file with the Graphviz code
+with open('outfile.gv', 'w') as f:
+    f.write(graphviz_code)
+
 '''
 Recursion in `doTasks`
 
@@ -84,7 +110,7 @@ Recursion in `doTasks`
 In summary, the recursive part of the `doTasks` function systematically explores all possible ways to combine tasks, so that their total duration matches `timeToWork`. It does this by considering each task both in and out of the combination and then aggregates all valid combinations found during this process.
 '''
 
-# Co-pilot solution is superb with its lambda function however, it only offers 1 selection of tasks.  I wanted to see if I could get all the tasks that could be completed within the given time.
+# Co-pilot solution is superb with its use of lambda as a sorting key however, it only offers 1 selection of tasks.  I wanted to see if I could get all the tasks that could be completed within the given time.
 def doTasksCP(tasks, timeToWork):
 	tasks.sort(key=lambda x: x['duration'])
 	completedTasks = []
