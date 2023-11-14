@@ -8,7 +8,8 @@ tasks = [
   { 'name': 'Mop Floors', 'duration': 7 },
   { 'name': 'Hang Laundry', 'duration': 5 },
   { 'name': 'Wipe Surfaces', 'duration': 1 },
-  { 'name': 'Make Cup of Tea', 'duration': 3 }
+  { 'name': 'Make Cup of Tea', 'duration': 3 },
+  { 'name': 'Make Cup of Coffee', 'duration': 3 }
 ]
 
 timeToWork = 6
@@ -16,14 +17,19 @@ timeToWork = 6
 def doTasks(tasks, timeToWork, index=0, currentSum=0, currentCombination=[], depth=0):
     # Indentation based on recursion depth
     indent = "  " * depth  
-    print(f"{indent}doTasks(index={index}, currentSum={currentSum}, currentCombination={currentCombination})")
+    # print(f"{indent}doTasks(index={index}, currentSum={currentSum}, currentCombination={currentCombination})")
+    if currentSum > timeToWork:
+         print(f"{indent}{currentCombination}, {currentSum} minutes (too long)")
+    else:
+         print(f"{indent}{currentCombination})")
 
     # Initialize a list to store combinations
     combinations = []
 
     # If the current sum equals the target time, add the current combination to the list of combinations.
     if currentSum == timeToWork:
-        print(f"{indent}Found combination: {currentCombination}")
+        # print(f"{indent}Found combination: {currentCombination}")
+        print(f"\n{indent}Found combination: {currentCombination}, {timeToWork} minutes\n")
         combinations.append(currentCombination)
         return combinations
 

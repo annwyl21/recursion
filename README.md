@@ -17,6 +17,8 @@ _Note: This requires Graphviz to be installed._
 
 Result:
 ![Task List](./taskgraph.png)
+
+I want to visualise the whole recursion process though, I need to create a nice tree printout.
 ===
 
 IDEA for a 'what to do app': 
