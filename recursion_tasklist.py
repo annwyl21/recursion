@@ -1,3 +1,4 @@
+from create_graph import create_graph_code
 # Casidoo - Given a list of tasks, where each task has a duration, and a limited amount of available time to work, write a function to return the tasks that can be completed within the given time, without re-ordering the original list of tasks.
 
 # RELEVANT EXAMPLE OF RECURSION
@@ -22,13 +23,15 @@ def doTasks(tasks, timeToWork, index=0, currentSum=0, currentCombination=[], dep
     else:
         if currentCombination:
             print(f"{indent}calculating... {currentCombination})")
+        else:
+            print(f"resetting...")
 
     # Initialize a list to store combinations
     combinations = []
 
     # If the current sum equals the target time, add the current combination to the list of combinations.
     if currentSum == timeToWork:
-        print(f"{indent}Found combination ({timeToWork} minutes): ", end="")
+        print(f"FOUND combination ({timeToWork} minutes): ", end="")
         for index, item in enumerate(currentCombination):
             if index < len(currentCombination) - 1:
                 print(f"{item}, ", end="")
@@ -59,6 +62,8 @@ def formatOutput(combinations):
 
 combinations = doTasks(tasks, timeToWork=6)
 formatted_output = formatOutput(combinations)
+# {1: ['Task 1', 'Task 2'], 2: ['Task 4', 'Task 5'], 3: ['Task 2', 'Task 5', 'Task 6']}
+
 print("\nResult:")
 for option, listoftasks in formatted_output.items():
     print(f"\tOption {option}: ", end="")
@@ -67,26 +72,9 @@ for option, listoftasks in formatted_output.items():
                 print(f"{item}, ", end="")
             else:
                 print(f"{item}")
-# {1: ['Task 1', 'Task 2'], 2: ['Task 4', 'Task 5'], 3: ['Task 2', 'Task 5', 'Task 6']}
 
 # Use the formatted output to generate the Graphviz code
-# Initialize parts of the Graphviz code
-nodes = []
-edges = []
-
-# Process the dictionary to create nodes and edges
-for key, tasklist in formatted_output.items():
-    option = 'Option ' + str(key)
-    nodes.append(f'\"{option}\" [color=yellow, style=filled, shape=rectangle]')
-    for value in tasklist:
-        edges.append(f'\"{option}\" -- \"{value}\"')
-
-# Combine everything into the final Graphviz code
-graphviz_code = "graph G {\n\t" + "\n\t".join(nodes + edges) + "\n}"
-
-# Create a file with the Graphviz code
-with open('outfile.gv', 'w') as f:
-    f.write(graphviz_code)
+create_graph_code(formatted_output)
 
 '''
 Recursion in `doTasks`
