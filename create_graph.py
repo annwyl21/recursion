@@ -16,4 +16,3 @@ def create_graph_code(formatted_output):
 	# Create a file with the Graphviz code
 	with open('outfile.gv', 'w') as f:
 		f.write(graphviz_code)
-		

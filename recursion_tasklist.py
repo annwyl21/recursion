@@ -38,7 +38,7 @@ for option, listoftasks in formatted_output.items():
                 print(f"{item}")
 
 # Use the formatted output to generate the Graphviz code
-create_graph_code(formatted_output)
+# create_graph_code(formatted_output)
 
 
 
