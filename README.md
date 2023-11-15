@@ -12,12 +12,13 @@ I have 6 minutes and several tasks on my task list.
 python recursion_tasklist.py
 ```
 - Run the generated graphviz code
+	- _Note: This requires Graphviz to be installed._
 ```
 dot -Tpng outfile.gv -o taskgraph.png
 ```
-_Note: This requires Graphviz to be installed._
 
-Result:
+Results:
 ![Task List](./taskgraph.png)
+![example using python library](./studygv/example.png)
 
 The command line output shows the recursion process as it works through.
