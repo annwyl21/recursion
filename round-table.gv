@@ -1,0 +1,8 @@
+// The Round Table
+graph {
+	A [label="King Arthur"]
+	B [label="Sir Lancelot"]
+	L [label="Sir Galahad"]
+	A -- B [label=knighthood]
+	A -- L [label=quest]
+}

@@ -1,0 +1,14 @@
+import graphviz
+
+# Create a new directed graph
+dot = graphviz.Graph(comment='The Round Table')
+
+# Add nodes and edges
+dot.node('A', 'King Arthur')
+dot.node('B', 'Sir Lancelot')
+dot.node('L', 'Sir Galahad')
+dot.edge('A', 'B', 'knighthood')
+dot.edge('A', 'L', 'quest')
+
+# Render the graph to a file (e.g., in PDF format)
+dot.render('round-table.gv', view=True)
