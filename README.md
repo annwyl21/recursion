@@ -20,6 +20,11 @@ _Note: This requires Graphviz to be installed._
 ```
 python recursion.py
 ```
+Each time the recursive function is called, the parameters are adjusted to change the starting point, moving closer towards an empty task list.
+There are key break points in my recursive cycles, to break the loop when specific conditions are met, either;
+- the time limit is reached, or 
+- the time limit is exceeded.
+My recursion ceases when the starting point reaches an empty list, and I have cycled through all the possible options.
 
 Results:
 ![Household Chores List of Options](./ToDoList.png)

@@ -1,4 +1,4 @@
-from create_graph import create_graph_code
+from studygv.create_graph import create_graph_code
 from recursion_code import doTasks
 import graphviz as gv
 
@@ -52,21 +52,3 @@ for option, listoftasks in formatted_output.items():
 
 # Use the formatted output to generate the Graphviz code
 # create_graph_code(formatted_output)
-
-
-
-# ALTERNATIVE SOLUTION
-
-# Co-pilot solution is superb with its use of lambda as a sorting key however, it only offers 1 selection of tasks.  I wanted to see if I could get all the tasks that could be completed within the given time.
-# Sort tasks by duration, shortest to longest, then iterate through the list of tasks.  If the timeToWork is greater than or equal to the duration of the task, add the task to the completedTasks list and subtract the duration of the task from the timeToWork.  Return the completedTasks list.
-def doTasksCP(tasks, timeToWork):
-	tasks.sort(key=lambda x: x['duration'])
-	completedTasks = []
-	for task in tasks:
-		if timeToWork - task['duration'] >= 0:
-			completedTasks.append(task['name'])
-			timeToWork -= task['duration']
-	return completedTasks
-
-print("Alternative Solution: ", doTasksCP(tasks, timeToWork=6))
-# ['Task 2', 'Task 5', 'Task 6']
