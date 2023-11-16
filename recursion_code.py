@@ -1,12 +1,10 @@
-import graphviz
 
-def doTasks(tasks, timeToWork, index=0, currentSum=0, currentCombination=[], depth=0):
-	dot = graphviz.Graph(comment='Task List', engine='circo')
-	dot.attr('node', style='filled')
-	dot.node('root', f'{timeToWork}-minutes', color='blue', fillcolor='lightblue')
-
+def doTasks(tasks, dot, timeToWork, index=0, currentSum=0, currentCombination=[], depth=0):
+	
+	# Create a dictionary to store node IDs for each task
 	task_nodes = {}
 
+	# Create a node for each task
 	for i, task in enumerate(tasks):
 		node_id = f"{task['name']}_{depth}"
 		task_nodes[(task['name'], depth)] = node_id
@@ -17,9 +15,6 @@ def doTasks(tasks, timeToWork, index=0, currentSum=0, currentCombination=[], dep
 	# print(f"{indent}doTasks(index={index}, currentSum={currentSum}, currentCombination={currentCombination})")
 	if currentSum > timeToWork:
 		print(f"{indent}{currentSum} minutes TOO LONG, {currentCombination}\n")
-		prev_item = currentCombination[index - 1]
-		dot.edge (task_nodes[(prev_item, depth)], task_nodes[(item, depth)], color='grey')
-		dot.node(task_nodes[(item, depth)], item, color='grey', fillcolor='lightgrey')
 	else:
 		if currentCombination:
 			print(f"{indent}calculating... {currentCombination})")
@@ -37,9 +32,7 @@ def doTasks(tasks, timeToWork, index=0, currentSum=0, currentCombination=[], dep
 				print(f"{item}, ", end="")
 			else:
 				print(f"{item}\n")
-				prev_item = currentCombination[index - 1]
-				dot.edge (task_nodes[(prev_item, depth)], task_nodes[(item, depth)], color='green')
-				dot.node(task_nodes[(item, depth)], item, color='blue', fillcolor='lightblue')
+
 		# print(f"{indent}Found combination: {currentCombination}")
 		combinations.append(currentCombination)
 		return combinations
@@ -49,13 +42,11 @@ def doTasks(tasks, timeToWork, index=0, currentSum=0, currentCombination=[], dep
 		return combinations
 
 	# Include the current task
-	combinations += doTasks(tasks, timeToWork, index + 1, currentSum + tasks[index]['duration'], currentCombination + [tasks[index]['name']], depth + 1)
+	combinations += doTasks(tasks, dot, timeToWork, index + 1, currentSum + tasks[index]['duration'], currentCombination + [tasks[index]['name']], depth + 1)
 
 	# Exclude the current task
-	combinations += doTasks(tasks, timeToWork, index + 1, currentSum, currentCombination, depth + 1)
+	combinations += doTasks(tasks, dot, timeToWork, index + 1, currentSum, currentCombination, depth + 1)
 	
-	dot.render('task_list.gv', view=True)
-
 	return combinations
 
 '''

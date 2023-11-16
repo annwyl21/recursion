@@ -1,10 +1,13 @@
 from create_graph import create_graph_code
 from recursion_code import doTasks
+import graphviz as gv
 
-# Casidoo - Given a list of tasks, where each task has a duration, and a limited amount of available time to work, write a function to return the tasks that can be completed within the given time, without re-ordering the original list of tasks.
+'''
+RELEVANT EXAMPLE OF RECURSION
+Casidoo - Given a list of tasks, where each task has a duration, and a limited amount of available time to work, write a function to return the tasks that can be completed within the given time, without re-ordering the original list of tasks.
+'''
 
-# RELEVANT EXAMPLE OF RECURSION
-
+# define the tasks
 tasks = [
   { 'name': 'Load Washing Machine', 'duration': 4 },
   { 'name': 'Clean Sink', 'duration': 2 },
@@ -16,7 +19,17 @@ tasks = [
 
 timeToWork = 6
 
-combinations = doTasks(tasks, timeToWork=6)
+# create a graphviz object
+dot = gv.Graph(comment='Task List', engine='circo')
+
+# set the default node style
+dot.attr('node', style='filled')
+dot.node('root', f'{timeToWork}-minutes', color='blue', fillcolor='lightblue')
+
+combinations = doTasks(tasks, dot, timeToWork=6)
+
+# render the graph
+dot.render('task_list.gv', view=True)
 
 # To get the desired output format
 def formatOutput(combinations):
