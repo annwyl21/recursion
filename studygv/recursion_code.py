@@ -1,6 +1,5 @@
 
-def doTasks(tasks, dot, timeToWork, index=0, currentSum=0, currentCombination=[], depth=0):
-	last_node = 'root'
+def doTasks(tasks, dot, timeToWork, index=0, currentSum=0, currentCombination=[], depth=0, last_node='root'):
 	task_nodes = []
 	# Create a dictionary to store node IDs for each task
 	# task_nodes = {}
@@ -52,7 +51,7 @@ def doTasks(tasks, dot, timeToWork, index=0, currentSum=0, currentCombination=[]
 
 			
 		else:
-			print(f"resetting...") # should connect all the base cases to the root node
+			print(f"resetting...")
 			for node in task_nodes:
 				task_nodes.remove(node)
 				dot.edge(last_node, node, color='grey')
@@ -89,10 +88,10 @@ def doTasks(tasks, dot, timeToWork, index=0, currentSum=0, currentCombination=[]
 		return combinations
 
 	# Include the current task
-	combinations += doTasks(tasks, dot, timeToWork, index + 1, currentSum + tasks[index]['duration'], currentCombination + [tasks[index]['name']], depth + 1)
+	combinations += doTasks(tasks, dot, timeToWork, index + 1, currentSum + tasks[index]['duration'], currentCombination + [tasks[index]['name']], depth + 1, node_id)
 
 	# Exclude the current task
-	combinations += doTasks(tasks, dot, timeToWork, index + 1, currentSum, currentCombination, depth + 1)
+	combinations += doTasks(tasks, dot, timeToWork, index + 1, currentSum, currentCombination, depth + 1, last_node)
 	
 	return combinations
 
