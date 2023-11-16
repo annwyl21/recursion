@@ -13,13 +13,25 @@ def doTasks(tasks, dot, timeToWork, index=0, currentSum=0, currentCombination=[]
 	# Indentation based on recursion depth
 	indent = "  " * depth  
 	# print(f"{indent}doTasks(index={index}, currentSum={currentSum}, currentCombination={currentCombination})")
-	# if currentSum > timeToWork:
-	# 	print(f"{indent}{currentSum} minutes TOO LONG, {currentCombination}\n")
-	# else:
-	# 	if currentCombination:
-	# 		print(f"{indent}calculating... {currentCombination})")
-	# 	else:
-	# 		print(f"resetting...")
+	if currentSum > timeToWork:
+		print(f"{indent}{currentSum} minutes TOO LONG, {currentCombination}\n")
+		
+		for index, item in enumerate(currentCombination):
+			node_name = f"{item}_{depth}"
+			dot.edge(last_node, node_name, color='grey')
+			dot.node(node_name, _attributes={'color':'grey', 'fillcolor':'lightgrey'})
+			last_node = node_name
+
+			if index < len(currentCombination) - 1:
+				print(f"{item}, ", end="")
+			else:
+				print(f"{item}\n")
+				
+	else:
+		if currentCombination:
+			print(f"{indent}calculating... {currentCombination})")
+		else:
+			print(f"resetting...")
 
 	# Initialize a list to store combinations
 	combinations = []
@@ -27,18 +39,17 @@ def doTasks(tasks, dot, timeToWork, index=0, currentSum=0, currentCombination=[]
 	# If the current sum equals the target time, add the current combination to the list of combinations.
 	if currentSum == timeToWork:
 		print(f"FOUND combination ({timeToWork} minutes): ", end="")
+
 		for index, item in enumerate(currentCombination):
+			node_name = f"{item}_{depth}"
+			dot.edge(last_node, node_name, color='green')
+			dot.node(node_name, _attributes={'color':'green', 'fillcolor':'lightgreen'})
+			last_node = node_name
+
 			if index < len(currentCombination) - 1:
 				print(f"{item}, ", end="")
-				node_name = f"{item}_{depth}"
-				dot.edge(last_node, node_name, color='green')
-				dot.node(node_name, _attributes={'color':'green', 'fillcolor':'lightgreen'})
-				last_node = node_name
 			else:
 				print(f"{item}\n")
-				node_name = f"{item}_{depth}"
-				dot.edge(last_node, node_name, color='green')
-				dot.node(node_name, _attributes={'color':'green', 'fillcolor':'lightgreen'})
 
 		# print(f"{indent}Found combination: {currentCombination}")
 		combinations.append(currentCombination)
