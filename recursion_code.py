@@ -1,26 +1,31 @@
 
 def doTasks(tasks, dot, timeToWork, index=0, currentSum=0, currentCombination=[], depth=0):
 	last_node = 'root'
+	task_nodes = []
 	# Create a dictionary to store node IDs for each task
-	task_nodes = {}
+	# task_nodes = {}
 
 	# Create a node for each task
-	for i, task in enumerate(tasks):
-		node_id = f"{task['name']}_{depth}"
-		task_nodes[(task['name'], depth)] = node_id
-		dot.node(node_id, task['name'])
+	# for i, task in enumerate(tasks):
+	# 	node_id = f"{task['name']}_{depth}"
+	# 	task_nodes[(task['name'], depth)] = node_id
+	# 	dot.node(node_id, task['name'])
 		
 	# Indentation based on recursion depth
 	indent = "  " * depth  
 	# print(f"{indent}doTasks(index={index}, currentSum={currentSum}, currentCombination={currentCombination})")
 	if currentSum > timeToWork:
-		print(f"{indent}{currentSum} minutes TOO LONG, {currentCombination}\n")
-		
+		print(f"{indent}{currentSum} minutes TOO LONG: ", end="")
+
 		for index, item in enumerate(currentCombination):
-			node_name = f"{item}_{depth}"
-			dot.edge(last_node, node_name, color='grey')
-			dot.node(node_name, _attributes={'color':'grey', 'fillcolor':'lightgrey'})
-			last_node = node_name
+			combination_str = '-'.join(currentCombination) if currentCombination else 'start'
+			node_id = f"{depth}_{combination_str}"
+			if node_id in task_nodes:
+				task_nodes.remove(node_id)
+			# dot.node(node_id)
+			dot.edge(last_node, node_id, color='grey')
+			dot.node(node_id, _attributes={'style': 'filled', 'color':'grey', 'fillcolor':'lightgrey'})
+			last_node = node_id
 
 			if index < len(currentCombination) - 1:
 				print(f"{item}, ", end="")
@@ -28,10 +33,29 @@ def doTasks(tasks, dot, timeToWork, index=0, currentSum=0, currentCombination=[]
 				print(f"{item}\n")
 				
 	else:
+		# Convert the current combination of tasks to a string
+		combination_str = '-'.join(currentCombination) if currentCombination else 'start'
+		name = currentCombination[-1] if currentCombination else 'start'
+
+		# Create a unique node ID using both depth and the task combination
+		node_id = f"{depth}_{combination_str}"
+		dot.node(node_id, name)
+		task_nodes.append(node_id)
+	
 		if currentCombination:
+			combination_str = '-'.join(currentCombination) if currentCombination else 'start'
+			node_id = f"{depth}_{combination_str}"
 			print(f"{indent}calculating... {currentCombination})")
+			if node_id in task_nodes:
+				task_nodes.remove(node_id)
+				dot.edge(last_node, node_id, color='grey')
+
+			
 		else:
-			print(f"resetting...")
+			print(f"resetting...") # should connect all the base cases to the root node
+			for node in task_nodes:
+				task_nodes.remove(node)
+				dot.edge(last_node, node, color='grey')
 
 	# Initialize a list to store combinations
 	combinations = []
@@ -41,10 +65,15 @@ def doTasks(tasks, dot, timeToWork, index=0, currentSum=0, currentCombination=[]
 		print(f"FOUND combination ({timeToWork} minutes): ", end="")
 
 		for index, item in enumerate(currentCombination):
-			node_name = f"{item}_{depth}"
-			dot.edge(last_node, node_name, color='green')
-			dot.node(node_name, _attributes={'color':'green', 'fillcolor':'lightgreen'})
-			last_node = node_name
+			combination_str = '-'.join(currentCombination) if currentCombination else 'start'
+			node_id = f"{depth}_{combination_str}"
+			if node_id in task_nodes:
+				task_nodes.remove(node_id)
+			# dot.node(node_id, item)
+			# dot.node(node_id)
+			dot.edge(last_node, node_id, color='green')
+			dot.node(node_id, _attributes={'style': 'filled', 'color':'green', 'fillcolor':'lightgreen'})
+			last_node = node_id
 
 			if index < len(currentCombination) - 1:
 				print(f"{item}, ", end="")

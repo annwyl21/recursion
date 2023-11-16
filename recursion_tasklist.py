@@ -20,11 +20,11 @@ tasks = [
 timeToWork = 6
 
 # create a graphviz object
-dot = gv.Graph(comment='Task List', engine='circo')
+# dot = gv.Graph(comment='Task List', engine='circo')
+dot = gv.Graph(comment='Task List')
 
 # set the default node style
-dot.attr('node', style='filled')
-dot.node('root', f'{timeToWork}-minutes', color='blue', fillcolor='lightblue')
+dot.node('root', f'{timeToWork}-minutes', color='blue', fillcolor='lightblue', style='filled')
 
 combinations = doTasks(tasks, dot, timeToWork=6)
 
